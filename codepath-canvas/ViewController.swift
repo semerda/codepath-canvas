@@ -123,12 +123,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             newlyCreatedFace.addGestureRecognizer(panGesture)
             
             // Newly created face can be pinched to scale the face
-            let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(didPinch))
-            newlyCreatedFace.addGestureRecognizer(pinchGesture)
+            //let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(didPinch))
+            //newlyCreatedFace.addGestureRecognizer(pinchGesture)
             
             // Newly created face can be rotated
-            let rotateGesture = UIRotationGestureRecognizer(target: self, action: #selector(didRotate(sender:)))
-            newlyCreatedFace.addGestureRecognizer(rotateGesture)
+            //let rotateGesture = UIRotationGestureRecognizer(target: self, action: #selector(didRotate(sender:)))
+            //newlyCreatedFace.addGestureRecognizer(rotateGesture)
             
             // Add the new face to the tray's parent view.
             view.addSubview(newlyCreatedFace)
