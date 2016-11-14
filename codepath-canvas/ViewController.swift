@@ -97,7 +97,7 @@ class ViewController: UIViewController {
         print("onFaceGesture.translation = \(translation)")
         
         if sender.state == .began {
-            print("onExcitedGesture.Gesture began")
+            print("onFaceGesture.Gesture began")
             
             // Gesture recognizers know the view they are attached to
             let imageView = sender.view as! UIImageView
@@ -112,6 +112,10 @@ class ViewController: UIViewController {
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(onFaceScalePanGesture))
             newlyCreatedFace.addGestureRecognizer(panGesture)
             
+            // Newly created face can be pinched to scale the face
+            let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(onFaceScalePinchGesture))
+            newlyCreatedFace.addGestureRecognizer(pinchGesture)
+            
             // Add the new face to the tray's parent view.
             view.addSubview(newlyCreatedFace)
             
@@ -125,27 +129,47 @@ class ViewController: UIViewController {
             originalFaceCenter = newlyCreatedFace.center
             
         } else if sender.state == .changed {
-            print("onExcitedGesture.Gesture is changing")
+            print("onFaceGesture.Gesture is changing")
             
             // Moves the element by x & y (ref translation)
             newlyCreatedFace.center = CGPoint(x: originalFaceCenter.x + translation.x, y: originalFaceCenter.y + translation.y)
             
         } else if sender.state == .ended {
-            print("onExcitedGesture.Gesture ended")
+            print("onFaceGesture.Gesture ended")
             
         }
     }
     
+    // Scaling Face using Panning
     // Ref: http://guides.codepath.com/ios/Using-Gesture-Recognizers#programmatically-add-and-configure-a-gesture-recognizer
     func onFaceScalePanGesture(sender: UIPanGestureRecognizer) {
         if sender.state == UIGestureRecognizerState.began {
-            print("onFacePan.Gesture began")
+            print("onFaceScalePanGesture.Gesture began")
             
             UIView.animate(withDuration: 0.2, animations: {
                 sender.view?.transform = CGAffineTransform(scaleX: 3, y: 3)
             })
         } else if sender.state == UIGestureRecognizerState.ended {
-            print("onFacePan.Gesture ended")
+            print("onFaceScalePanGesture.Gesture ended")
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                sender.view?.transform = CGAffineTransform(scaleX: 1, y: 1)
+            })
+        }
+    }
+    
+    // Scaling Face using Pinch
+    // Ref: https://courses.codepath.com/courses/ios_for_designers/pages/using_gesture_recognizers
+    // Ref: https://courses.codepath.com/courses/ios_for_designers/pages/using_view_transforms
+    func onFaceScalePinchGesture(sender: UIPinchGestureRecognizer) {
+        if sender.state == UIGestureRecognizerState.began {
+            print("onFaceScalePinchGesture.Gesture began")
+            
+            UIView.animate(withDuration: 0.2, animations: {
+                sender.view?.transform = CGAffineTransform(scaleX: 3, y: 3)
+            })
+        } else if sender.state == UIGestureRecognizerState.ended {
+            print("onFaceScalePinchGesture.Gesture ended")
             
             UIView.animate(withDuration: 0.2, animations: {
                 sender.view?.transform = CGAffineTransform(scaleX: 1, y: 1)
