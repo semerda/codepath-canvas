@@ -16,7 +16,7 @@ Using gesture recognizers, and animations to build a tray of smiley faces that c
 
 Here's a walkthrough of implemented user stories:
 
-<img src='canvas-faces-anim.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='canvas-faces-anim-v1.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
