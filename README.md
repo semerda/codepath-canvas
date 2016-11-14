@@ -12,6 +12,14 @@ Using gesture recognizers, and animations to build a tray of smiley faces that c
 - [x] Dropping a Face on the Tray
 - [x] Deleting Faces
 
+## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='canvas-faces-anim.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
 ## License
 
 Visit [www.ernestsemerda.com](http://www.ernestsemerda.com/)
