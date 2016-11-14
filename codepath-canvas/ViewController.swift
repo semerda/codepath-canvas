@@ -137,6 +137,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             //let rotateGesture = UIRotationGestureRecognizer(target: self, action: #selector(didRotate(sender:)))
             //newlyCreatedFace.addGestureRecognizer(rotateGesture)
             
+            let doubleTap = UITapGestureRecognizer(target: self, action: #selector(didDoubleTapToRemove))
+            doubleTap.numberOfTapsRequired = 2
+            newlyCreatedFace.addGestureRecognizer(doubleTap)
+            
             // Add the new face to the tray's parent view.
             view.addSubview(newlyCreatedFace)
             
@@ -221,6 +225,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         imageView.transform = imageView.transform.rotated(by: rotation)
         sender.rotation = 0
     }
-
+    
+    @IBAction func didDoubleTapToRemove(sender: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 3, animations: {
+            sender.view?.transform = CGAffineTransform(scaleX: 0, y: 0)
+        }, completion: { finished in
+            if finished {
+                sender.view?.removeFromSuperview()
+            }
+        })
+    }
+    
 }
 
