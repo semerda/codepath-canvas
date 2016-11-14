@@ -2,6 +2,16 @@
 
 Using gesture recognizers, and animations to build a tray of smiley faces that can be dragged onto a canvas in Swift 3.
 
+- [x] Draggable Tray
+- [x] Open + Close the Tray
+- [x] Creating New Faces
+- [x] Panning Faces
+- [x] Scaling Faces
+- [x] Rotating Faces
+- [x] The Tray Arrow
+- [x] Dropping a Face on the Tray
+- [x] Deleting Faces
+
 ## License
 
 Visit [www.ernestsemerda.com](http://www.ernestsemerda.com/)
