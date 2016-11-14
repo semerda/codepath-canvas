@@ -126,6 +126,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(didPinch))
             newlyCreatedFace.addGestureRecognizer(pinchGesture)
             
+            // Newly created face can be rotated
+            let rotateGesture = UIRotationGestureRecognizer(target: self, action: #selector(didRotate(sender:)))
+            newlyCreatedFace.addGestureRecognizer(rotateGesture)
+            
             // Add the new face to the tray's parent view.
             view.addSubview(newlyCreatedFace)
             
@@ -192,6 +196,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let imageView = sender.view as! UIImageView
         imageView.transform = imageView.transform.scaledBy(x: scale, y: scale)
         sender.scale = 1
+    }
+    
+    @IBAction func didRotate(sender: UIRotationGestureRecognizer) {
+        let rotation = sender.rotation
+        let imageView = sender.view as! UIImageView
+        imageView.transform = imageView.transform.rotated(by: rotation)
+        sender.rotation = 0
     }
 
 }
