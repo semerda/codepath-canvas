@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var trayView: UIView!
+    @IBOutlet weak var trayArrowImageView: UIImageView!
     
     var trayOriginalCenter: CGPoint!
     var trayDownOffset: CGFloat!
@@ -30,7 +31,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         trayUp = trayView.center
         trayDown = CGPoint(x: trayView.center.x ,y: trayView.center.y + trayDownOffset)
         
-        panGestureRecognizer.delegate = self;
+        //panGestureRecognizer.delegate = self;
     }
 
     override func didReceiveMemoryWarning() {
@@ -66,6 +67,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
             trayOriginalCenter = trayView.center
             
+            // Rotate tray arrow up
+            trayArrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat(180 * M_PI / 180))
+            
         } else if sender.state == .changed {
             print("onTrayPanGesture.Gesture is changing")
             
@@ -74,6 +78,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             
         } else if sender.state == .ended {
             print("onTrayPanGesture.Gesture ended")
+            
+            // Rotate tray arrow down
+            trayArrowImageView.transform = CGAffineTransform(rotationAngle: CGFloat(0 * M_PI / 180))
             
             // Ref: https://guides.codepath.com/ios/Animating-View-Properties
             // Ref2: https://guides.codepath.com/ios/Animating-View-Properties#spring-animation
@@ -151,6 +158,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         } else if sender.state == .ended {
             print("onFaceGesture.Gesture ended")
             
+            // If face is dropped inside the tray then remove it
+            if (newlyCreatedFace.frame.origin.y > trayView.frame.origin.y) {
+                UIView.animate(withDuration: 2, animations: {
+                    self.newlyCreatedFace.transform = CGAffineTransform(scaleX: 0, y: 0)
+                }, completion: { finished in
+                    if finished {
+                        self.newlyCreatedFace.removeFromSuperview()
+                    }
+                })
+            }
         }
     }
     
