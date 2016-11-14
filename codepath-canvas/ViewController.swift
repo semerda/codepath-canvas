@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var trayView: UIView!
     
@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     var newlyCreatedFace: UIImageView!
     var originalFaceCenter: CGPoint!
 
+    @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -27,11 +29,19 @@ class ViewController: UIViewController {
         trayDownOffset = 240
         trayUp = trayView.center
         trayDown = CGPoint(x: trayView.center.x ,y: trayView.center.y + trayDownOffset)
+        
+        panGestureRecognizer.delegate = self;
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // Using Simultaneous Gesture Recognizers
+    // Ref: https://courses.codepath.com/courses/ios_for_designers/pages/using_gesture_recognizers#heading-using-simultaneous-gesture-recognizers
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
     
     // Tray slide up and down with down bounce
@@ -113,7 +123,7 @@ class ViewController: UIViewController {
             newlyCreatedFace.addGestureRecognizer(panGesture)
             
             // Newly created face can be pinched to scale the face
-            let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(onFaceScalePinchGesture))
+            let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(didPinch))
             newlyCreatedFace.addGestureRecognizer(pinchGesture)
             
             // Add the new face to the tray's parent view.
@@ -175,6 +185,13 @@ class ViewController: UIViewController {
                 sender.view?.transform = CGAffineTransform(scaleX: 1, y: 1)
             })
         }
+    }
+    
+    @IBAction func didPinch(sender: UIPinchGestureRecognizer) {
+        let scale = sender.scale
+        let imageView = sender.view as! UIImageView
+        imageView.transform = imageView.transform.scaledBy(x: scale, y: scale)
+        sender.scale = 1
     }
 
 }

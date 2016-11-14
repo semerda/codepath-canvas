@@ -79,6 +79,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
+                        <outlet property="panGestureRecognizer" destination="8h0-Hp-mEW" id="f98-AW-lnr"/>
                         <outlet property="trayView" destination="BfY-KR-GJu" id="MVe-hz-Yss"/>
                     </connections>
                 </viewController>
